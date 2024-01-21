@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import getAllData from "./getAllData";
-// import getSearch from "./getSearch";
+import getSearch from "./getSearch";
 
 
 const store = configureStore({
     reducer:{
-        // search: getSearch ,
-        getAll : getAllData
+        search : getSearch,
+        all : getAllData
     }
 
 })

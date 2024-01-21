@@ -2,28 +2,42 @@ import { useState } from "react"
 
 const BookRow =(props)=>{
     const [open , setOpen]= useState(false)
+    const openClose=(id)=>{
+        if(open === id){
+            setOpen(false)
+        }else{
+            setOpen(id)
+        }
+    }
     const bookInfo = (info)=>{
-        if(info){
-            let price =info.saleInfo.listPrice.amount + info.saleInfo.listPrice.currencyCode
+        if(info.saleInfo){
+            let price = <p className="card-text w-100"> {info.saleInfo.saleability }</p>
+            let image = <div 
+                        style={{height:'15rem'}}
+                        className="w-100 object-fit-fill rounded m-0 p-0 opacity-25 bg-dark" 
+                        ></div>
+            if(info.volumeInfo.imageLinks){
+                image = <img src={info.volumeInfo.imageLinks.thumbnail} 
+                style={{height:'15rem'}}
+                className="card-img img-fluid object-fit-fill rounded m-0 p-0 opacity-25" 
+                alt={info.volumeInfo.title}
+                />
+            }
+            if(info.saleInfo.isEbook){
+                let p = info.saleInfo.listPrice.amount +'    '+ info.saleInfo.listPrice.currencyCode
+                price = (<p className="card-text w-100"> 
+                                <span className="fs-4">Price:</span>
+                                <span className="fw-bold fs-4">{p}</span>
+                        </p> )  
+            }
             return(
-                <div class="container position-relative  justify-content-start align-items-center ">
-                    <div className="row">
-                        <img src={info.volumeInfo.imageLinks.smallThumbnail} 
-                        className=" m-0 p-0 col ratio object-fit-cover border rounded"  
-                        style={{width:'2rem', height:'2rem'}}
-                        alt={info.volumeInfo.title}
-                        />
-                        <div className="col p-0 m-0 border-left">
-                            <span className="fs-4">Price:</span>
-                            <span className="fw-bold fs-4">{price}</span>
-                            
-                        </div>
-                    </div>
-                    <div className="row">
-                        <p className="text-truncate col-8  fs-5 fw-light m-0  p-2 col-md-4" >
-                            {info.volumeInfo.description}
-                        </p>
-                        <a href={info.volumeInfo.infoLink} className="col-4 fs-5 fw-bolder text-decoration-none hoverLink ">more info</a>
+                <div className="card bg-dark text-white m-0 p-0 border-0 d-flex align-items-center justify-contetnt-between">
+                    {image}
+                    <div className=" card-img-overlay img-fluid rounded m-0 p-5 ">
+                        {price}
+                        <p className="card-text  text-truncate w-100"> {info.volumeInfo.description}</p>
+                        <h6 className="">publisher : {info.volumeInfo.publisher} &#40; {info.volumeInfo.publishedDate} &#41;</h6>
+                        <a href={info.volumeInfo.infoLink} className="hoverLink col fs-6 fw-bolder text-decoration-none text-white text-uppercase p-1">more info</a>
                     </div>
                 </div>
             )
@@ -31,10 +45,11 @@ const BookRow =(props)=>{
     }
     let book = props.list.map((value , index)=> 
         <div key={index} 
-        className={"book row d-flex flex-row w-auto overflow-hidden justify-content-start p-3 mb-3 bg-light rounded text-center font-weight-medium font-size-base hoverable" + (open === index ? ' openBook ' :'')}
-        onClick={()=>{setOpen(index) ; console.log(value)}}
+        className={"book row d-flex flex-row w-auto overflow-hidden justify-content-start p-3 mb-3 bg-white rounded text-center font-weight-medium font-size-base hoverable" + (open === index ? ' openBook ' :'')}
+        style={{height:'4rem'}}
+        onClick={()=> openClose(index)}
         >
-            <h6 className="text-start m-0 p-0">{value.volumeInfo.title}</h6>
+            <h6 className="text-start m-0 p-0 fs-5">{value.volumeInfo.title}</h6>
             {(open === index) ? bookInfo(value) : ''}
         </div>
     )

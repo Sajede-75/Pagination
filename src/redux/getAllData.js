@@ -1,16 +1,10 @@
-import { createSlice , createAsyncThunk } from "@reduxjs/toolkit";
-
-export const fetchData = createAsyncThunk('get/fetch',
-    async ()=>{
-        const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=''`)
-        const data = await response.json()
-        return data
-    })
+import { createSlice } from "@reduxjs/toolkit";
+import { allBooks  } from "./action";
 
 const initialState = {
     list:[],
-    sending: true,
-    error:''
+    sending : false,
+    error : ''
 }
 
 const getAllData = createSlice({
@@ -18,17 +12,18 @@ const getAllData = createSlice({
     initialState,
     reducers:{},
     extraReducers : (builder) => {
-        // eslint-disable-next-line no-unused-expressions
-        builder.addCase(fetchData.fulfilled , (state, action)=>{
-            state.list =  action.payload
+        builder.addCase(allBooks.fulfilled , (state, action)=>{
+            // eslint-disable-next-line no-unused-expressions
+            state.list =  action.payload,
             state.sending = false
-        }),
+        })
         // eslint-disable-next-line no-unused-expressions
-        builder.addCase(fetchData.pending , (state)=>{
+        builder.addCase(allBooks.pending , (state)=>{
             state.sending = true
         }) ,
         // eslint-disable-next-line no-unused-expressions
-        builder.addCase(fetchData.rejected , (state)=>{
+        /*eslint no-unused-expressions: "error"*/
+        builder.addCase(allBooks.rejected , (state)=>{
             state.sending = false
             state.error = 'WRONG!'
         })

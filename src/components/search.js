@@ -1,16 +1,20 @@
 import { useState } from "react"
-import { useDispatch , useSelector} from "react-redux"
-import { fetchDataSearch } from "../redux/getSearch"
+import { useDispatch} from "react-redux"
+import { allBooks, searchBook } from "../redux/action"
 
 const Search =()=>{
-
     const [ search , setSearch ] = useState('')
     const dispatch = useDispatch()
-    const selector = useSelector((state)=> state)
     return (
-        <div className="position-relative w-50 m-4 mx-auto d-flex flex-row w-80  justify-content-center align-items-center">
-            <input type="text" value={search} onChange={(e)=>setSearch(e.target.value)} class="w-8 form-control mx-3" />
-            <button className="btn btn-primary " onClick={()=> dispatch(fetchDataSearch({bookname : search}))}>search</button>
+        <div className="position-relative p-5 d-flex flex-row w-100 justify-content-center align-items-center shadow bg-transparet z-index-1">
+            <input type="text" 
+            value={search} 
+            onChange={(e)=>setSearch(e.target.value)} 
+            className="form-control mx-3 mw-100" 
+            style={{width:'20em'}}
+            placeholder="Search book's name"
+            />
+            <button className="btn btn-primary " onClick={()=> dispatch(allBooks({search}))}>search</button>
         </div>
     )
 }

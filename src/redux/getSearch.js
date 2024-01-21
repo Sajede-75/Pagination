@@ -1,11 +1,5 @@
-import { createAsyncThunk , createSlice } from "@reduxjs/toolkit";
-
-export const fetchDataSearch = createAsyncThunk('get/fetch',
-    async ()=>{
-        const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=`)
-        const data = await response.json()
-        return data
-    })
+import { createSlice } from "@reduxjs/toolkit";
+import { searchBook } from "./action";
 
 const initialState = {
     bookname:'',
@@ -19,16 +13,16 @@ const bookSlice = createSlice({
     reducers:{},
     extraReducers : (builder)=> {
         // eslint-disable-next-line no-unused-expressions
-        builder.addCase(fetchDataSearch.fulfilled , (state, action)=>{
+        builder.addCase(searchBook.fulfilled , (state, action)=>{
             state.bookname =  action.payload
             state.finding = false
         }),
         // eslint-disable-next-line no-unused-expressions
-        builder.addCase(fetchDataSearch.pending , (state)=>{
+        builder.addCase(searchBook.pending , (state)=>{
             state.finding = true
         }),
         // eslint-disable-next-line no-unused-expressions
-        builder.addCase(fetchDataSearch.rejected , (state)=>{
+        builder.addCase(searchBook.rejected , (state)=>{
             state.finding = false 
             state.errorSearch = 'WRONG!'
         })
