@@ -4,37 +4,54 @@ import { fetchData } from "../redux/getAllData"
 import { Loading } from "./loading"
 import Pagination from "./pagination/pagination"
 import { handelPage, pageItems } from "./pagination/handelPages"
+import ShowCount from "./pagination/ShowCount"
+import BookRow from "../redux/books/bookRow"
 
 const List =()=>{
     const [page , setPage] = useState(0)
     const [pages , setPages] = useState(0)
     const [number , setNumber] = useState(5)
     const dispatch = useDispatch()
-    const allList = useSelector(state => state)
+    const allList = useSelector(state => state.getAll)
 
     useEffect(()=>{
         dispatch(fetchData())
-        let p = 1
-        if(allList.getAll.list.items.length){
-            p = handelPage(allList.getAll.list.items.length,number)
+        let p = 1 
+        if(allList && allList.list.items){
+            p = handelPage(allList.list.items.length,number)
         }
         setPages(p)
     },[dispatch])
-
-    const changePage=(page)=> {
-        if(pages <= page && page >= 1){
-          setPages(page)
+    useEffect(()=>{
+        let p = 1 
+        if(allList && allList.list.items){
+            p = handelPage(allList.list.items.length,number)
         }
-      }
+        setPages(p)
+    },[ number]) 
+    const changeNumber=(e)=> {
+        setNumber(e.target.value)
+    }
+    const changePage=(page)=> {
+        if(page <= pages && page >= 1){
+            setPage(page)
+            if(allList.list.items){
+                let p = handelPage(allList.list.items.length,number)
+                setPages(p)
+            }
+        }
+    }
     
     let datas = <Loading/>
-    if(allList.getAll.list.items){
-        let newArray = [...allList.getAll.list.items];
+    if(allList.list.items){
+        let newArray = [...allList.list.items];
         let newItem = pageItems(newArray,number,page);
-        datas =  newItem.map((value , index)=> <div key={index} className="row d-flex flex-row w-auto justify-content-start p-3 mb-3 bg-light border-0 rounded text-center">{value.id}</div>)
+        console.log(newItem)
+        datas= <BookRow list={newItem}/>
     }
     return (
-        <div className="position-relative d-grid justify-content-justify w-100 p-5">
+        <div className="position-relative d-grid justify-content-justify w-100 p-5 text-center h-100">
+            <ShowCount changeNumber={changeNumber} number={number}/>
             {datas}
             <Pagination changePage={changePage} page={page} pages={pages}/>
         </div>

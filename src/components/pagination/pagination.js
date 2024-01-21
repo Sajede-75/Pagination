@@ -8,13 +8,13 @@ class Pagination extends React.Component{
         let end = (this.props.page + 2 < this.props.pages) ? this.props.page + 2 : this.props.pages ;
         if(start > 1){
             pages.push(
-                <span className={"btn " + ((1 === this.props.page) ? 'active' : '')} onClick={() => this.props.changePage( 1 )} key={0}>
+                <span className={"page btn mw-5 border rounded m-1" + ((1 === this.props.page) ? ' border-secondary' : '')} onClick={() => this.props.changePage( 1 )} key={0}>
                     {0 + 1}
                 </span>
             )
             if(start !== 2){
                 pages.push(
-                    <span className={"btn "}  key={-1}>
+                    <span className={"page btn mw-5 border rounded m-1"}  key={-1}>
                     ...
                     </span>
                 )
@@ -23,7 +23,7 @@ class Pagination extends React.Component{
 
         for(let i = start -1 ; i < end ; i++){
             pages.push(
-                <span className={"btn " + ((i+1 === this.props.page) ? 'active' : '')} onClick={() => this.props.changePage( i+1 )} key={i}>
+                <span className={"page btn mw-5 border rounded m-1" + ((i+1 === this.props.page) ? ' border-secondary' : '')} onClick={() => this.props.changePage( i+1 )} key={i}>
                     {i + 1}
                 </span>
         )   
@@ -31,13 +31,13 @@ class Pagination extends React.Component{
         if(end < this.props.pages){
             if(end !== this.props.pages -1){
                 pages.push(
-                    <span className={"btn "}  key={-2}>
+                    <span className={" btn mw-5 border rounded m-1"}  key={-2}>
                     ...
                     </span>
                 )
             }
             pages.push(
-                <span className={"btn " + ((this.props.pages === this.props.page) ? 'active' : '')} onClick={() => this.props.changePage( this.props.pages  )} key={this.props.pages - 1}>
+                <span className={" btn mw-5 border rounded m-1" + ((this.props.pages === this.props.page) ? ' border-secondary' : '')} onClick={() => this.props.changePage( this.props.pages  )} key={this.props.pages - 1}>
                     {this.props.pages}
                 </span>
                 )
@@ -49,15 +49,15 @@ class Pagination extends React.Component{
 
     render(){
         return(
-            <div className="pages" >
-                <div className="btn right" onClick={() => this.props.changePage( this.props.page - 1 )}>
+            <div className="m-2 d-flex flex-row justify-content-center align-items-center" >
+                <div className=" btn right-svg mw-5 border rounded m-1 p-1" onClick={() => this.props.changePage( this.props.page - 1 )}>
                   <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 150 150">
                     <title>next</title>
                     <path className="st0" d="M49.9,148c-5.6,0-10.1-4.6-10.1-10.2c0-2.5,1-5,2.7-6.8l49-52c2.8-3,2.7-7.7-0.3-10.5l-52-49 c-4.1-3.8-4.3-10.3-0.4-14.4s10.3-4.3,14.4-0.4l51.9,49.1c11.1,10.5,11.6,28,1.1,39.1l-49.1,52C55.4,146.9,52.7,148,49.9,148z"></path>
                   </svg>
                 </div>
                 {this.handelPage()}
-                <div className="btn left" onClick={() => this.props.changePage( this.props.page + 1 )}>
+                <div className=" btn left-svg mw-5 border rounded m-1 p-1" onClick={() => this.props.changePage( this.props.page + 1 )}>
                   <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 150 150">
                     <title>previse</title>
                     <path className="st0" d="M49.9,148c-5.6,0-10.1-4.6-10.1-10.2c0-2.5,1-5,2.7-6.8l49-52c2.8-3,2.7-7.7-0.3-10.5l-52-49 c-4.1-3.8-4.3-10.3-0.4-14.4s10.3-4.3,14.4-0.4l51.9,49.1c11.1,10.5,11.6,28,1.1,39.1l-49.1,52C55.4,146.9,52.7,148,49.9,148z"></path>

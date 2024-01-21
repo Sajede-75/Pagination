@@ -9,7 +9,7 @@ export const fetchData = createAsyncThunk('get/fetch',
 
 const initialState = {
     list:[],
-    sending: false,
+    sending: true,
     error:''
 }
 
