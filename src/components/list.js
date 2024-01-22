@@ -30,6 +30,7 @@ const List =()=>{
     const changeNumber=(e)=> {        
         setNumber(e.target.value)
         setPage(1)
+        setOpen(false)
         let p = handelPage(allList.list.items.length,e.target.value)
         setPages(p)
     }
