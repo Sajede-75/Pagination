@@ -21,6 +21,7 @@ const List =()=>{
     useEffect(()=>{
         let p = 1 
         if(allList && allList.list.items){
+            console.log('ksksk')
             p = handelPage(allList.list.items.length,number)
         }
         setPages(p)
@@ -28,7 +29,11 @@ const List =()=>{
 
     const changeNumber=(e)=> {        
         setNumber(e.target.value)
+        setPage(1)
+        let p = handelPage(allList.list.items.length,e.target.value)
+        setPages(p)
     }
+   
     const changePage=(page)=> {
         if(page <= pages && page >= 1){
             setPage(page)
@@ -53,8 +58,8 @@ const List =()=>{
     }else{
         if(allList.list.items){
             let newArray = [...allList.list.items];
-            let newItem = pageItems(newArray,number,page);
-            datas= <BookRow list={newItem} openClose={openClose} open={open}/>
+            let newList = pageItems(newArray,number,page);
+            datas= <BookRow list={newList} openClose={openClose} open={open}/>
         }else{
             datas= <h3 className="m-3 fs-5">NOTHING FIND</h3>
         }
