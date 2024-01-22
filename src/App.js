@@ -15,7 +15,7 @@ function App() {
         ></div>
 
         <div className='base-style py-lg-5 m-lg-auto mt-5 p-2' style={{width:(window.innerWidth > 850 ?'70vw' : '100vw')}}>
-          <h3 className='text-center  text-lg mb-3 fw-bolder text-white'>BOOK REFRENCE</h3>
+          <h3 className='text-center  text-lg mb-3 fw-bolder text-white'>BOOK REFERENCE</h3>
           <Search />
           <List />
         </div>
