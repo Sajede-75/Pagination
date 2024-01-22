@@ -38,6 +38,7 @@ const List =()=>{
     const changePage=(page)=> {
         if(page <= pages && page >= 1){
             setPage(page)
+            setOpen(false)
             if(allList.list.items){
                 let p = handelPage(allList.list.items.length,number)
                 setPages(p)
