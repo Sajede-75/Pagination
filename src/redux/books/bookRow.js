@@ -1,14 +1,5 @@
-import { useState } from "react"
 
 const BookRow =(props)=>{
-    const [open , setOpen]= useState(false)
-    const openClose=(id)=>{
-        if(open === id){
-            setOpen(false)
-        }else{
-            setOpen(id)
-        }
-    }
     const bookInfo = (info)=>{
         if(info.saleInfo){
             let price = <p className="card-text w-100"> {info.saleInfo.saleability }</p>
@@ -23,7 +14,7 @@ const BookRow =(props)=>{
                 alt={info.volumeInfo.title}
                 />
             }
-            if(info.saleInfo.isEbook){
+            if(info.saleInfo.isEbook && (info.saleInfo.saleability !== 'FREE')){
                 let p = info.saleInfo.listPrice.amount +'    '+ info.saleInfo.listPrice.currencyCode
                 price = (<p className="card-text w-100"> 
                                 <span className="fs-4">Price:</span>
@@ -31,13 +22,13 @@ const BookRow =(props)=>{
                         </p> )  
             }
             return(
-                <div className="card bg-dark text-white m-0 p-0 border-0 d-flex align-items-center justify-contetnt-between">
+                <div className="card bg-dark text-white m-0 p-0 border-0 d-flex align-items-center justify-contetnt-between mt-2">
                     {image}
-                    <div className=" card-img-overlay img-fluid rounded m-0 p-5 ">
+                    <div className="card-img-overlay img-fluid rounded m-0 p-5 ">
                         {price}
-                        <p className="card-text  text-truncate w-100"> {info.volumeInfo.description}</p>
-                        <h6 className="">publisher : {info.volumeInfo.publisher} &#40; {info.volumeInfo.publishedDate} &#41;</h6>
-                        <a href={info.volumeInfo.infoLink} className="hoverLink col fs-6 fw-bolder text-decoration-none text-white text-uppercase p-1">more info</a>
+                        <p className="card-text text-truncate w-100"> {info.volumeInfo.description}</p>
+                        <h6 className="mb-4">publisher : {info.volumeInfo.publisher} &#40; {info.volumeInfo.publishedDate} &#41;</h6>
+                        <a href={info.volumeInfo.infoLink} className="hoverLink col fs-6 fw-bolder text-decoration-none text-white text-uppercase p-1 ">more info</a>
                     </div>
                 </div>
             )
@@ -45,12 +36,11 @@ const BookRow =(props)=>{
     }
     let book = props.list.map((value , index)=> 
         <div key={index} 
-        className={"book row d-flex flex-row w-auto overflow-hidden justify-content-start p-3 mb-3 bg-white rounded text-center font-weight-medium font-size-base hoverable" + (open === index ? ' openBook ' :'')}
-        style={{height:'4rem'}}
-        onClick={()=> openClose(index)}
+        className={"book row d-flex flex-row w-auto overflow-hidden p-2 m-2 mb-lg-1 bg-light border w-100 rounded text-center font-weight-medium font-size-base " + (props.open === value.id ? ' openBook ' :'')}
+        onClick={()=> props.openClose(value.id)}
         >
-            <h6 className="text-start m-0 p-0 fs-5">{value.volumeInfo.title}</h6>
-            {(open === index) ? bookInfo(value) : ''}
+            <h6 className="text-start m-0 p-0 fs-5 ">{value.volumeInfo.title}</h6>
+            {(props.open === value.id) ? bookInfo(value) : ''}
         </div>
     )
     return book

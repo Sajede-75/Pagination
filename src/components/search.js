@@ -1,20 +1,26 @@
 import { useState } from "react"
 import { useDispatch} from "react-redux"
-import { allBooks, searchBook } from "../redux/action"
+import { allBooks } from "../redux/action"
 
 const Search =()=>{
     const [ search , setSearch ] = useState('')
     const dispatch = useDispatch()
+    const searchAction=(text)=>{
+        if(text){
+            dispatch(allBooks({text}))
+        }
+    }
     return (
-        <div className="position-relative p-5 d-flex flex-row w-100 justify-content-center align-items-center shadow bg-transparet z-index-1">
+        <div className="position-relative p-lg-3 p-2 d-flex flex-row w-100 justify-content-center align-items-center shadow bg-transparet  bg-body-secondary rounded-top ">
             <input type="text" 
             value={search} 
             onChange={(e)=>setSearch(e.target.value)} 
-            className="form-control mx-3 mw-100" 
-            style={{width:'20em'}}
+            className="form-control mx-lg-3 mw-100 mx-2" 
+            style={{width:'20rem'}}
             placeholder="Search book's name"
+            required
             />
-            <button className="btn btn-primary " onClick={()=> dispatch(allBooks({search}))}>search</button>
+            <button className="btn btn-outline-secondary"  onClick={()=> searchAction(search)}>search</button>
         </div>
     )
 }

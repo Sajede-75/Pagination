@@ -7,30 +7,26 @@ import ShowCount from "./pagination/ShowCount"
 import BookRow from "../redux/books/bookRow"
 import { allBooks } from "../redux/action"
 
-const List =(props)=>{
-    const [page , setPage] = useState(0)
+const List =()=>{
+    const [page , setPage] = useState(1)
     const [pages , setPages] = useState(0)
     const [number , setNumber] = useState(5)
+    const [open , setOpen]= useState(false)
+
     const dispatch = useDispatch()
     const allList = useSelector(state => state.all)
-    console.log('ssss', allList)
     useEffect(()=>{
         dispatch(allBooks())
-        let p = 1 
-        if(allList && allList.list.items){
-            p = handelPage(allList.list.items.length,number)
-        }
-        setPages(p)
-    },[dispatch])
+    },[dispatch ])
     useEffect(()=>{
         let p = 1 
         if(allList && allList.list.items){
             p = handelPage(allList.list.items.length,number)
         }
         setPages(p)
-    },[number]) 
-    
-    const changeNumber=(e)=> {
+    },[number , allList.list.items]) 
+
+    const changeNumber=(e)=> {        
         setNumber(e.target.value)
     }
     const changePage=(page)=> {
@@ -42,7 +38,15 @@ const List =(props)=>{
             }
         }
     }
-    
+
+    const openClose=(id)=>{
+        if(open === id){
+            setOpen(false)
+        }else{
+            setOpen(id)
+        }
+    }
+
     let datas 
     if(allList.sending){
         datas = <Loading/>
@@ -50,14 +54,16 @@ const List =(props)=>{
         if(allList.list.items){
             let newArray = [...allList.list.items];
             let newItem = pageItems(newArray,number,page);
-            datas= <BookRow list={newItem}/>
+            datas= <BookRow list={newItem} openClose={openClose} open={open}/>
         }else{
-            datas= <h3 className="m-3">NOTHING FIND</h3>
+            datas= <h3 className="m-3 fs-5">NOTHING FIND</h3>
         }
     }
 
     return (
-        <div className="position-relative d-grid justify-content-justify w-100 p-5 text-center h-auto mb-5 bg-light">
+        <div data-bs-theme="light" 
+        className="position-relative d-grid  w-100 px-lg-3 py-3 text-center h-auto mb-lg-5 bg-white rounded-bottom px-2"
+        >
             <ShowCount changeNumber={changeNumber} number={number}/>
             {datas}
             <Pagination changePage={changePage} page={page} pages={pages}/>

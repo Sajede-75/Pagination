@@ -6,42 +6,48 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   direction: ltr;
+  background: #efefef;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.right-svg , .left-svg{
-  svg{
-    width: 1rem;
-    margin: 0;
-    padding: 0
-  }
-  :hover{
-    background: #e5e5e5;
-    border-color: #000;
-  }
+.light-bg-cover{
+  background-color: #9e98f177;
 }
-.right-svg svg{
-  transform: rotate(180deg);
+.page{
+  border: 1px solid #eee;
+  border-radius: 0.25rem;
+  margin: 0.25rem ;
+  font-size: 1rem;
+  padding: 0.5rem;
+  aspect-ratio: 1 ;
+  cursor: pointer;
 }
 .page :hover{
-    background: red;
-    border-color: #000;
-}
-.hoverable:hover{
-  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.16);
+  border-color: #000;
 }
 .book{
   height: 5rem;
-  transition: all 1s cubic-bezier(0.4, 0, 1, 1);
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+.book:hover{
+  box-shadow: 0px 8px 16px rgba(70, 39, 90, 0.25);
 }
 .openBook{
   min-height: 20rem;
-  transition: all 1s cubic-bezier(0.4, 0, 1, 1);
-  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);;
+  box-shadow: 8px 8px 16px rgba(97, 91, 101, 0.5);
 }
 .hoverLink:hover{
   border: 1px solid #FFF;
+}
+.base-style{
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
 }

@@ -21,10 +21,10 @@ export default function ShowCount(props){
     }
     return(
         <div
-        className='position-relative d-flex flex-row-reverse mw-30 align-items-center mb-3'
+        className='position-relative d-flex flex-row-reverse justify-content-start w-100 align-items-center mb-3'
         style={{height:'2rem'}}
         >
-            <h5 className="m-2">count </h5>
+            <h5 className="m-2 fs-6">AMOUNT </h5>
             {ItemShow()}
         </div>
     )
